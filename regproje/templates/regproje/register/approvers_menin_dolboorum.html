@@ -1,0 +1,350 @@
+{% extends "regproje/base_approvers.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="container" id="table-container">
+    <h3>Долбоор</h3>
+
+    <!-- First Accordion: Project Information -->
+
+    <div class="accordion" id="accordionProjects">
+
+            <div class="accordion-item">
+                <h4 class="accordion-header" id="headingProject{{ forloop.counter }}">
+                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProject{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapseProject{{ forloop.counter }}">
+                        <h5>1. Долбоор тууралуу маалымат:</h5>
+
+                    </button>
+                </h4>
+                <div id="collapseProject{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="headingProject{{ forloop.counter }}">
+                    <div class="accordion-body">
+                      {% if user_projects %}
+                      {% for project in user_projects %}
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Долбоордун аталышы:</div>
+                            <div class="col-8">{{ project.dolboordun_atalyshy }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Приоритеттүү багыты:</div>
+                            <div class="col-8">{{ project.prioritettu_bagyty }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Долбоордун мөөнөтү:</div>
+                            <div class="col-8">{{ project.dolboordun_moonotu }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Долбоордун географиялык орду:</div>
+                            <div class="col-8">{{ project.dolboordun_geografiyalyk_ordu }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Максатталган аудитория:</div>
+                            <div class="col-8">{{ project.maksathtalgan_auditoriya }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Долбоордун бюджети:</div>
+                            <div class="col-8">{{ project.dolboordun_byudzheti }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Өнөктөштөрүңүз маалымат:</div>
+                            <div class="col-8">{{ project.onoktoshtorunuz_maalymat|linebreaks }}</div>
+                        </div>
+                      {% endfor %}
+        {% else %}
+            <p>2.Негизги маалымат: Бул бөлүм азырынча толтурула элек.</p>
+        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+    <!-- Second Accordion: Contact Information -->
+<div class="accordion mt-4" id="accordionContacts">
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="headingContacts">
+            <button class="accordion-button {% if negizgimaalymat %}collapsed{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContacts" aria-expanded="{% if negizgimaalymat %}true{% else %}false{% endif %}" aria-controls="collapseContacts">
+                <h5>2. Негизги маалымат:</h5>
+
+            </button>
+        </h4>
+        <div id="collapseContacts" class="accordion-collapse collapse {% if negizgimaalymat %}show{% else %}collapse{% endif %}" aria-labelledby="headingContacts">
+            <div class="accordion-body">
+                {% if negizgimaalymat %}
+                    {% for info in negizgimaalymat %}
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Юридикалык жак/Жеке киши:</div>
+                            <div class="col-8">{{ info.yuridikalyk_jekekishi }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Аты-жөнү:</div>
+                            <div class="col-8">{{ info.aty_jonu }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Мекеменин аталышы:</div>
+                            <div class="col-8">{{ info.mekmenin_atalyshy }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Мекеменин жетекчиси:</div>
+                            <div class="col-8">{{ info.mekmenin_zhetekchisi }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Позициясы:</div>
+                            <div class="col-8">{{ info.pozitsiyasi }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Байланыш телефону:</div>
+                            <div class="col-8">{{ info.baylanysh_telefonu }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Мобилдик телефону:</div>
+                            <div class="col-8">{{ info.mobildik_telefonu }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">электрондук почтасы:</div>
+                            <div class="col-8">{{ info.email }}</div>
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <p>Контакттык маалымат жок.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- New Accordion: Problem and Justification -->
+<div class="accordion mt-4" id="accordionProblems">
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="headingProblems">
+            <button class="accordion-button {% if kenenmaalymat %}collapsed{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProblems" aria-expanded="{% if kenenmaalymat %}true{% else %}false{% endif %}" aria-controls="collapseProblems">
+                <h5>3.	Долбоор боюнча кенен маалымат</h5>
+
+            </button>
+        </h4>
+        <div id="collapseProblems" class="accordion-collapse collapse {% if kenenmaalymat %}show{% else %}collapse{% endif %}" aria-labelledby="headingProblems">
+            <div class="accordion-body">
+                {% if kenenmaalymat %}
+                    {% for info in kenenmaalymat %}
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Көйгөй жана негиздеме:</div>
+                            <div class="col-8">{{ info.koygoi_zhana_negizdeme|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Максат жана милдеттери:</div>
+                            <div class="col-8">{{ info.maksat_zhana_mildetteri|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Максатталган аудитория:</div>
+                            <div class="col-8">{{ info.maksathtalgan_auditoriya|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Күтүлгөн жыйынтык:</div>
+                            <div class="col-8">{{ info.kutulgozh_zhyintyk|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Тобокелчиликтер:</div>
+                            <div class="col-8">{{ info.tobokelchilikter|linebreaks }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Көйгөй жана негиздеме маалыматы жок.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Accordion: İskilashuruuplany -->
+<div class="accordion mt-4" id="accordionIskeashyruuplany">
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="headingIskeashyruuplany">
+            <button class="accordion-button {% if iskeashyruuplany %}collapsed{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIskeashyruuplany" aria-expanded="{% if iskeashyruuplany %}true{% else %}false{% endif %}" aria-controls="collapseIskeashyruuplany">
+                <h5>4. Ишке ашыруу планы:</h5>
+
+            </button>
+        </h4>
+        <div id="collapseIskeashyruuplany" class="accordion-collapse collapse {% if iskeashyruuplany %}show{% else %}collapse{% endif %}" aria-labelledby="headingIskeashyruuplany">
+            <div class="accordion-body">
+                {% if iskeashyruuplany %}
+                    <h5>Долбоордун негизги этаптары: </h5>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Этап</th>
+                                    <th>Иш-аракет</th>
+                                    <th>Ишке ашыруу мөөнөтү</th>
+                                    <th>Күтүлгөн жыйынтык</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in iskeashyruuplany %}
+                                <tr>
+                                    <td>{{ item.etap }}</td>
+                                    <td>{{ item.ish_araket|linebreaks }}</td>
+                                    <td>{{ item.ishke_ashyruu_moonotu }}</td>
+                                    <td>{{ item.kutulgozh_zhyintyk|linebreaks }}</td>
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% else %}
+                    <p>Ишке ашыруу пландары маалыматы жок. <a href="{% url 'regproje:iskeashyruuplany_create' %}">Жаңы этап түзүңүз.</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <!-- New Accordion: Project Budget -->
+<div class="accordion mt-4" id="accordionDolboordundudjeti">
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="headingDolboordundudjeti">
+            <button class="accordion-button {% if dolboordundudjeti %}collapsed{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDolboordundudjeti" aria-expanded="{% if dolboordundudjeti %}true{% else %}false{% endif %}" aria-controls="collapseDolboordundudjeti">
+                <h5>5. Долбоордун бюджети:</h5>
+
+            </button>
+        </h4>
+        <div id="collapseDolboordundudjeti" class="accordion-collapse collapse {% if dolboordundudjeti %}show{% else %}collapse{% endif %}" aria-labelledby="headingDolboordundudjeti">
+            <div class="accordion-body">
+                {% if dolboordundudjeti %}
+                    {% for budget in dolboordundudjeti %}
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Команда сунушталган бюджет:</div>
+                            <div class="col-8">{{ budget.komanda_sunushtalgan_budjet }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Команда баяндама:</div>
+                            <div class="col-8">{{ budget.komanda_bayandama|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Ишчара сунушталган бюджет:</div>
+                            <div class="col-8">{{ budget.ischara_sunushtalgan_budjet }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Ишчара баяндама:</div>
+                            <div class="col-8">{{ budget.ischara_bayandama|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Түзчүгүңдөр сунушталган бюджет:</div>
+                            <div class="col-8">{{ budget.tuzchygymdar_sunushtalgan_budjet }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Түз чыгымдөр баяндама:</div>
+                            <div class="col-8">{{ budget.tuzchygymdar_bayandama|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Өздүк салым баяндама:</div>
+                            <div class="col-8">{{ budget.ozduksalym_bayandama|linebreaks }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Өздүк салым сунушталган бюджет:</div>
+                            <div class="col-8">{{ budget.ozduksalym_sunushtalgan_budjet }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Долбоордун бюджети маалыматы жок.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- New Accordion: Project Team -->
+<div class="accordion mt-4" id="accordionDolboordunkomandasy">
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="headingDolboordunkomandasy">
+            <button class="accordion-button {% if dolboordunkomandasy %}collapsed{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDolboordunkomandasy" aria-expanded="{% if dolboordunkomandasy %}true{% else %}false{% endif %}" aria-controls="collapseDolboordunkomandasy">
+                <h5>6.	Долбоордун командасы:</h5>
+
+            </button>
+        </h4>
+        <div id="collapseDolboordunkomandasy" class="accordion-collapse collapse {% if dolboordunkomandasy %}show{% else %}collapse{% endif %}" aria-labelledby="headingDolboordunkomandasy">
+            <div class="accordion-body">
+                {% if dolboordunkomandasy %}
+                    {% for team in dolboordunkomandasy %}
+                        <div class="row mb-2">
+                            <div class="col-4 text-end fw-bold">Негизги катышуучулар:</div>
+                            <div class="col-8">{{ team.negizgi_katyshuuchular|linebreaks }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>6.Долбоордун командасы тууралуу маалымат жок.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- New Accordion: Evaluation Methods and Sustainability Plan -->
+<div class="accordion mt-4" id="accordionBaalooTuruktuuluk">
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="headingBaalooTuruktuuluk">
+            <button class="accordion-button {% if baaloo_turuktuuluk %}collapsed{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaalooTuruktuuluk" aria-expanded="{% if baaloo_turuktuuluk %}true{% else %}false{% endif %}" aria-controls="collapseBaalooTuruktuuluk">
+                <h5>7. Баалоо методдору жана туруктуулук планы:</h5>
+
+            </button>
+        </h4>
+        <div id="collapseBaalooTuruktuuluk" class="accordion-collapse collapse {% if baaloo_turuktuuluk %}show{% else %}collapse{% endif %}" aria-labelledby="headingBaalooTuruktuuluk">
+            <div class="accordion-body">
+                {% if baaloo_turuktuuluk %}
+                    <div class="row mb-2">
+                        <div class="col-4 text-end fw-bold">Баалоо методдору:</div>
+                        <div class="col-8">{{ baaloo_turuktuuluk.baaloo_metoddoru |linebreaks }}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 text-end fw-bold">Туруктуулук планы:</div>
+                        <div class="col-8">{{ baaloo_turuktuuluk.turuktuluk_plany |linebreaks }}</div>
+                    </div>
+                {% else %}
+                    <p>Баалоо методдору жана туруктуулук планы тууралуу маалымат жок.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- New Accordion: Attachments -->
+<div class="accordion mt-4" id="accordionTirkemeler">
+    <div class="accordion-item">
+        <h4 class="accordion-header" id="headingTirkemeler">
+            <button class="accordion-button {% if tirkemeler %}collapsed{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTirkemeler" aria-expanded="{% if tirkemeler %}true{% else %}false{% endif %}" aria-controls="collapseTirkemeler">
+                <h5>8. Тиркемелер:</h5>
+
+            </button>
+        </h4>
+        <div id="collapseTirkemeler" class="accordion-collapse collapse {% if tirkemeler %}show{% else %}collapse{% endif %}" aria-labelledby="headingTirkemeler">
+            <div class="accordion-body">
+                {% if tirkemeler %}
+                    <ul class="list-group">
+                        {% for tirkeme in tirkemeler %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{{ tirkeme.file.url }}" class="text-decoration-none" target="_blank">
+                                    {{ tirkeme.name }}
+                                </a>
+                                <span class="badge bg-primary rounded-pill">{{ tirkeme.file.name|slice:":30" }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Тиркемелер тууралуу маалымат жок.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+{% block js_files %}
+<script src="{% static 'js/printTable.js' %}"></script>
+{% endblock %}

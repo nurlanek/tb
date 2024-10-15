@@ -1,0 +1,49 @@
+{% extends "regproje/base.html" %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %} Команда Формасы {% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">6.	Долбоордун командасы</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboor.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboor.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboor }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.negizgi_katyshuuchular.id_for_label }}" class="col-sm-4 col-form-label">{{ form.negizgi_katyshuuchular.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.negizgi_katyshuuchular }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сактоо</button>
+</form>
+
+{% if dolboordunkomandasy_list %}
+    <h3>Долбоордун командасы жөнүндө сакталган маалымат</h3>
+    <ul>
+        {% for komanda in dolboordunkomandasy_list %}
+        <li>
+            {{ komanda.negizgi_katyshuuchular }} -
+            <a href="{% url 'regproje:dolboordunkomandasy_edit' komanda.pk %}">Өзгөртүү</a> |
+            <a href="{% url 'regproje:dolboordunkomandasy_delete' komanda.pk %}">Өчүрүү</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Азырынча эч кандай Команда катталган эмес. <a href="{% url 'regproje:dolboordunkomandasy_create' %}">Жаңы Команда түзүңүз.</a></p>
+{% endif %}
+
+{% endblock %}

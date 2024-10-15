@@ -1,0 +1,91 @@
+{% extends "regproje/base.html" %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %} Negizgimaalymat Formu {% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">2.Негизги маалымат</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.dolboor.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboor }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">{{ form.yuridikalyk_jekekishi.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.yuridikalyk_jekekishi }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.aty_jonu.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.aty_jonu }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.mekmenin_atalyshy.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.mekmenin_atalyshy }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.mekmenin_zhetekchisi.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.mekmenin_zhetekchisi }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.pozitsiyasi.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.pozitsiyasi }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.baylanysh_telefonu.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.baylanysh_telefonu }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">{{ form.mobildik_telefonu.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.mobildik_telefonu }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.email.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.email }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сактоо</button>
+</form>
+
+{% if negizgimaalymat_list %}
+    <h3>Сакталган маалыматтар тизмеси</h3>
+    <ul>
+        {% for item in negizgimaalymat_list %}
+        <li>
+            {{ item.aty_jonu }} -
+            <a href="{% url 'regproje:negizgimaalymat_edit' item.pk %}">Өзгөртүү</a> |
+            <a href="{% url 'regproje:negizgimaalymat_delete' item.pk %}">Өчүрүү</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Азырынча эч кандай маалымат жок. <a href="{% url 'regproje:negizgimaalymat_create' %}">Жаңы маалымат түзүңүз.</a></p>
+{% endif %}
+
+{% endblock %}

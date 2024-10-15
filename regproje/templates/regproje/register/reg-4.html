@@ -1,0 +1,108 @@
+{% extends "regproje/base.html" %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %} Dolboordundudjeti Form {% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">5. Долбоордун бюджети</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">{{ form.dolboor.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboor }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboordun_atalyshy.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboordun_atalyshy.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboordun_atalyshy }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.komanda_sunushtalgan_budjet.id_for_label }}" class="col-sm-4 col-form-label">{{ form.komanda_sunushtalgan_budjet.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.komanda_sunushtalgan_budjet }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.komanda_bayandama.id_for_label }}" class="col-sm-4 col-form-label">{{ form.komanda_bayandama.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.komanda_bayandama }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.ischara_sunushtalgan_budjet.id_for_label }}" class="col-sm-4 col-form-label">{{ form.ischara_sunushtalgan_budjet.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.ischara_sunushtalgan_budjet }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.ischara_bayandama.id_for_label }}" class="col-sm-4 col-form-label">{{ form.ischara_bayandama.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.ischara_bayandama }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.tuzchygymdar_sunushtalgan_budjet.id_for_label }}" class="col-sm-4 col-form-label">{{ form.tuzchygymdar_sunushtalgan_budjet.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.tuzchygymdar_sunushtalgan_budjet }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.tuzchygymdar_bayandama.id_for_label }}" class="col-sm-4 col-form-label">{{ form.tuzchygymdar_bayandama.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.tuzchygymdar_bayandama }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.ozduksalym_bayandama.id_for_label }}" class="col-sm-4 col-form-label">{{ form.ozduksalym_bayandama.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.ozduksalym_bayandama }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.ozduksalym_sunushtalgan_budjet.id_for_label }}" class="col-sm-4 col-form-label">{{ form.ozduksalym_sunushtalgan_budjet.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.ozduksalym_sunushtalgan_budjet }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сактоо</button>
+</form>
+
+{% if dolboordundudjeti_list %}
+    <h3>Долбоордун бюджети жөнүндө сакталган маалымат</h3>
+    <ul>
+        {% for item in dolboordundudjeti_list %}
+        <li>
+            {{ item.komanda_sunushtalgan_budjet }} -
+            <a href="{% url 'regproje:dolboordundudjeti_edit' item.pk %}">Өзгөртүү</a> |
+            <a href="{% url 'regproje:dolboordundudjeti_delete' item.pk %}">Өчүрүү</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Азырынча эч кандай долбоордун бюджети катталган эмес. <a href="{% url 'regproje:dolboordundudjeti_create' %}">Жаңы түзүңүз.</a></p>
+{% endif %}
+
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% endblock %}

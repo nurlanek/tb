@@ -1,0 +1,73 @@
+{% extends "regproje/base.html" %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %} 3.Долбоор боюнча кенен маалымат  {% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">
+                3.Долбоор боюнча кенен маалымат
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.dolboor.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboor }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.koygoi_zhana_negizdeme.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.koygoi_zhana_negizdeme }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  class="col-sm-4 col-form-label">{{ form.maksat_zhana_mildetteri.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.maksat_zhana_mildetteri }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">{{ form.maksathtalgan_auditoriya.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.maksathtalgan_auditoriya }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">{{ form.kutulgozh_zhyintyk.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.kutulgozh_zhyintyk }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">{{ form.tobokelchilikter.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.tobokelchilikter }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сактоо</button>
+
+</form>
+{% if kenenmaalymat_list %}
+    <h3>Долбоор боюнча кенен маалымат</h3>
+    <ul>
+        {% for kenenmaalymat in kenenmaalymat_list %}
+        <li>
+            {{ kenenmaalymat.koygoi_zhana_negizdeme }} -
+            <a href="{% url 'regproje:kenenmaalymat_edit' kenenmaalymat.pk %}">Өзгөртүү</a> |
+            <a href="{% url 'regproje:kenenmaalymat_delete' kenenmaalymat.pk %}">Өчүрүү</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Азырынча эч кандай Кенен маалымат катталган эмес. <a href="{% url 'regproje:kenenmaalymat_create' %}">Жаңы Кенен маалымат түзүңүз.</a></p>
+{% endif %}{% endblock %}

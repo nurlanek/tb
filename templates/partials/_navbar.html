@@ -1,0 +1,64 @@
+
+{% load static %}
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'main:home' %}">
+            <img class="mb-4" src="{% static 'assets/brand/logo-nav.png' %}" alt="" width="" height="27">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+
+        <ul class="navbar-nav me-auto">
+                <a class="nav-link" href="">Башкы бет</a>
+            </li>
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tema</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="">Tema 1</a></li>
+                        <li><a class="dropdown-item" href="">Tema 2</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Тема</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="">Tema 3</a></li>
+                        <li><a class="dropdown-item" href="">Tema 4</a></li>
+                        <li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="">Tema 5</a>
+            </li>
+
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="">Өздүк кабинет</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:logout' %}">Чыгуу</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Салам, {{ user.username }} </a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:login' %}">Кирүү</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:register' %}">Катталуу</a>
+                </li>
+            {% endif %}
+        </ul>
+        </div>
+    </div>
+</nav>

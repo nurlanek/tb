@@ -1,0 +1,68 @@
+{% extends "regproje/base.html" %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %} Тиркемелер тизмеси {% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">Тиркемелер тууралуу маалымат</h4>•	Команаданын резюмелери<br>
+•	Календардык планы<br>
+•	Чыгаша сметасы<br>
+•	Рекомендациялык каттар<br>
+
+<br><br><b>Башка документтер:</b> Долбоордун кабыл алынуусуна оң таасир тийгизе турган документтерди тиркеңиз.<br>
+
+•	Каттоо боюнча күбөлүк<br>
+•	Мамлекеттик салык кызматынан карыз боюнча маалымат кат<br>
+•	Акыркы 2 жыл боюнча бухгалтердик баланс<br>
+•	Рекомендациялык каттар<br>
+
+        </div>
+
+        <div class="card-body">
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboor.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboor.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboor }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.name.id_for_label }}" class="col-sm-4 col-form-label">{{ form.name.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.file.id_for_label }}" class="col-sm-4 col-form-label">{{ form.file.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.file }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сактоо</button>
+</form>
+
+{% if tirkemeler_list %}
+    <h3>Сакталган тиркемелердин тизмеси </h3>
+    <ul>
+        {% for item in tirkemeler_list %}
+        <li>
+            {{ item.name }} - {{ item.file }} -
+            <a href="{% url 'regproje:tirkemeler_create' %}">дагы жүктөө</a> |
+            <a href="{% url 'regproje:tirkemeler_edit' item.pk %}">Өзгөртүү</a> |
+            <a href="{% url 'regproje:tirkemeler_delete' item.pk %}">Өчүрүү</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Азырынча эч кандай тиркемелер катталган эмес. <a href="{% url 'regproje:tirkemeler_create' %}">Жаңы тиркеме түзүңүз.</a></p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "regproje/base.html" %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %} Баалоо Туруктуулук Формасы {% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">7.	Баалоо жана туруктуулук</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboor.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboor.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboor }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.baaloo_metoddoru.id_for_label }}" class="col-sm-4 col-form-label">{{ form.baaloo_metoddoru.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.baaloo_metoddoru }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.turuktuluk_plany.id_for_label }}" class="col-sm-4 col-form-label">{{ form.turuktuluk_plany.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.turuktuluk_plany }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сактоо</button>
+</form>
+
+{% if baaloo_turuktuuluk_list %}
+    <h3>Баалоо жана туруктуулук жөнүндө маалымат</h3>
+    <ul>
+        {% for item in baaloo_turuktuuluk_list %}
+        <li>
+            {{ item.baaloo_metoddoru|slice:":30" }} -
+            <a href="{% url 'regproje:baaloo_turuktuuluk_edit' item.pk %}">Өзгөртүү</a> |
+            <a href="{% url 'regproje:baaloo_turuktuuluk_delete' item.pk %}">Өчүрүү</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Азырынча эч кандай Баалоо жана туруктуулук катталган эмес. <a href="{% url 'regproje:baaloo_turuktuuluk_create' %}">Жаңы Баалоо жана туруктуулук түзүңүз.</a></p>
+{% endif %}
+
+{% endblock %}

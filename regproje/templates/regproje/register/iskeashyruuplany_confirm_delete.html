@@ -1,0 +1,15 @@
+{% extends "regproje/base.html" %}
+
+{% block title %}Өчүрүү{% endblock %}
+
+{% block content %}
+<h2> Өчүрүү</h2>
+<p>Бул жазууну чын эле жок кылгыңыз келеби? </p>
+<p</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Өчүрүү</button>
+    <a href="{% url 'regproje:iskeashyruuplany_list' %}" class="btn btn-secondary">Жокко чыгаруу</a>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Өчүрүү{% endblock %}
+
+{% block content %}
+  <h1>Бул жазууну чын эле жок кылгыңыз келеби?</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Өчүрүү</button>
+    <a href="{% url 'regproje:negizgimaalymat_list' %}" class="btn btn-secondary">Жокко чыгаруу</a>
+  </form>
+{% endblock %}

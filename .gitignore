@@ -1,0 +1,16 @@
+venv/Lib
+ulan/main/migrations/
+**/migrations/
+readme.txt
+git.txt
+sql_queries.txt
+test.txt
+
+__pycache__/
+*.py[cod]
+
+# Django specific
+*.log
+db.sqlite3
+/media
+/staticfiles

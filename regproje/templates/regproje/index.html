@@ -1,0 +1,54 @@
+{% extends "regproje/base_approvers.html" %}
+{% load static %}
+{% block css_files %}
+{% endblock %}
+
+{% block title %}Проекты{% endblock %}
+
+{% block content %}
+<div class="container mt-2">
+    <h4>Долбоорлор</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Долбоордун ээси</th>
+                <th>Долбоордун аталышы</th>
+                <th>Коментарий</th>
+                <th>Кыймыл</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in dolboor_data %}
+            <tr>
+                <td>
+                    {{ item.dolboor.user. }} {{ item.dolboor.user.last_name }}
+                </td>
+                <td><a href="{% url 'regproje:approvers_menin_dolboorum' item.dolboor.id %}">{{ item.dolboor.dolboordun_atalyshy }}</a></td>
+                <td>
+                    {% if item.last_confirmation %}
+                        {{ item.last_confirmation.comment }}
+                    {% else %}
+                        <span style="color: ;">Комментарий жок</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.last_confirmation and item.last_confirmation.confirmation %}
+                        <span style="color: green;"><strong>Макулдашылды</strong></span>
+                    {% else %}
+                    <form method="post" action="{% url 'regproje:project_confirmation' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="dolboor_id" value="{{ item.dolboor.id }}">
+                        <input type="text" name="comment" >
+                        <input type="checkbox" id="approval_{{ item.dolboor.id }}" name="confirmation">
+                        <label for="approval_{{ item.dolboor.id }}">Макулмун</label>
+                        <input type="hidden" name="applicant_user_id" value="{{ item.dolboor.user_id }}">{{ item.dolboor.user_id }}
+                        <button type="submit" class="btn btn-sm btn-secondary ms-4">Жөнөт</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

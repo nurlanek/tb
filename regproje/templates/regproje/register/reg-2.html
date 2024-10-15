@@ -1,0 +1,81 @@
+{% extends "regproje/base.html" %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4 class="mb-0">1.	Долбоор тууралуу маалымат</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboordun_atalyshy.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboordun_atalyshy.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboordun_atalyshy }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.prioritettu_bagyty.id_for_label }}" class="col-sm-4 col-form-label">{{ form.prioritettu_bagyty.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.prioritettu_bagyty }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboordun_moonotu.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboordun_moonotu.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboordun_moonotu }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboordun_geografiyalyk_ordu.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboordun_geografiyalyk_ordu.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboordun_geografiyalyk_ordu }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.maksathtalgan_auditoriya.id_for_label }}" class="col-sm-4 col-form-label">{{ form.maksathtalgan_auditoriya.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.maksathtalgan_auditoriya }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.dolboordun_byudzheti.id_for_label }}" class="col-sm-4 col-form-label">{{ form.dolboordun_byudzheti.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.dolboordun_byudzheti }}
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="{{ form.onoktoshtorunuz_maalymat.id_for_label }}" class="col-sm-4 col-form-label">{{ form.onoktoshtorunuz_maalymat.label }}</label>
+                <div class="col-sm-8">
+                    {{ form.onoktoshtorunuz_maalymat }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сактоо</button>
+</form>
+
+
+{% if dolboor_list %}
+    <h3>Сакталган долбоор</h3>
+    <ul>
+        {% for dolboor in dolboor_list %}
+        <li>
+            {{ dolboor.dolboordun_atalyshy }} -
+            <a href="{% url 'regproje:dolboor_edit' dolboor.pk %}">Өзгөртүү</a> |
+            <a href="{% url 'regproje:dolboor_delete' dolboor.pk %}"></a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Азырынча эч кандай долбоор катталган эмес. <a href="{% url 'regproje:dolboor_create' %}">Жаңы Долбоор түзүңүз.</a></p>
+
+{% endif %}
+
+{% endblock %}

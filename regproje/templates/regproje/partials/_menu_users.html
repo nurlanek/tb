@@ -1,0 +1,70 @@
+<ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:index' %}">
+                <i class="bi bi-house-fill"></i>
+                Башкы бет
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:menin_dolboorum' %}">
+                <i class="bi bi-archive"></i>
+                 Долбоордун абалы
+              </a>
+            </li>
+    <hr class="my-3"><li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-body-secondary text-uppercase " href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+              Форманы толтуруу
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:dolboor_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                1.Долбоор тууралуу маалымат
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:negizgimaalymat_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                2.Негизги маалымат
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:kenenmaalymat_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                3.Долбоор боюнча кенен маалымат
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:iskeashyruuplany_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                4.Ишке ашыруу планы
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:dolboordundudjeti_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                5.Долбоордун бюджети
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:dolboordunkomandasy_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                6.Долбоордун командасы
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:baaloo_turuktuuluk_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                7.Баалоо жана туруктуулук
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="{% url 'regproje:tirkemeler_list' %}">
+                <i class="bi bi-file-earmark-text"></i>
+                8.Тиркемелер
+              </a>
+            </li>
+          </ul>
+        </li>
+</ul>

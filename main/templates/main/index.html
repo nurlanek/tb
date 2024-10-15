@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+{% endblock %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<div class="container">
+
+
+
+<h4>Долбоорлордун абалы</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Кайрылуучу</th>
+            <th>Долбоор</th>
+            <th>Кайрылуу датасы</th>
+            <th>Тастыктоо</th>
+            <th>Тастыктаган</th>
+            <th>Коментарий</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in list_project_confirmation %}
+        <tr>
+            <td> {{ item.applicant_user.first_name }} {{ item.applicant_user.last_name }}</td>
+            <td>{{ item.dolboor }}</td>
+            <td>{{ item.created }}</td>
+            <td>{% if confirmation is true %}
+                <span style="color: green; font-weight: bold; ">тастыкталды</span>
+             {% else %}
+                <span style="color: red; font-weight: bold;">тастыкталган жок</span>
+             {% endif %}
+             </td>
+            <td>{{ item.user.first_name  }} {{ item.user.last_name  }}</td>
+            <td>{{ item.comment }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block js_files %}
+<script src="{% static 'main/js/script.js' %}"></script>
+
+{% endblock %}
