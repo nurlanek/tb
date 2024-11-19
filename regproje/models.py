@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Dolboor(models.Model):
@@ -12,6 +13,7 @@ class Dolboor(models.Model):
     dolboordun_byudzheti = models.DecimalField(max_digits=20, decimal_places=2, verbose_name='Долбоордун бюджети')
     onoktoshtorunuz_maalymat = models.TextField(verbose_name='Өнөктөштөрүңүз маалымат')
     is_active = models.BooleanField(default=True, verbose_name='Активен')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Катталган күнү')
 
     def __str__(self): return self.dolboordun_atalyshy
 

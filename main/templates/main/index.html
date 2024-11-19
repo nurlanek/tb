@@ -1,54 +1,38 @@
-{% extends "base.html" %}
+{% extends "main/base.html" %}
 {% load static %}
 
 {% block css_files %}
 <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 {% endblock %}
 
-{% block title %} Home {% endblock %}
+{% block title %}Башкы бет {% endblock %}
 
 {% block content %}
-<div class="container">
+            <!-- Sağdaki içerik -->
+        <h4>Долбоорлордун абалы</h4>
 
-
-
-<h4>Долбоорлордун абалы</h4>
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Кайрылуучу</th>
             <th>Долбоор</th>
             <th>Кайрылуу датасы</th>
-            <th>Тастыктоо</th>
-            <th>Тастыктаган</th>
-            <th>Коментарий</th>
+
         </tr>
     </thead>
     <tbody>
-        {% for item in list_project_confirmation %}
+        {% for item in dolboorlor %}
         <tr>
-            <td> {{ item.applicant_user.first_name }} {{ item.applicant_user.last_name }}</td>
-            <td>{{ item.dolboor }}</td>
-            <td>{{ item.created }}</td>
-            <td>{% if confirmation is true %}
-                <span style="color: green; font-weight: bold; ">тастыкталды</span>
-             {% else %}
-                <span style="color: red; font-weight: bold;">тастыкталган жок</span>
-             {% endif %}
-             </td>
-            <td>{{ item.user.first_name  }} {{ item.user.last_name  }}</td>
-            <td>{{ item.comment }}</td>
+            <td>{{ item.user.first_name }} {{ item.user.last_name }}</td>
+            <td><a href="{% url 'main:index_detail' item.id %}">{{ item }}</a></td>
+            <td>{{ item.created|date:"d.m.Y" }}</td>
+            <td></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
-</div>
-
-
-
 {% endblock %}
-
 {% block js_files %}
 <script src="{% static 'main/js/script.js' %}"></script>
 

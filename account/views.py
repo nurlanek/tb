@@ -16,7 +16,7 @@ def login_request(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect_based_on_group(request)  # Girişten sonra yönlendirme fonksiyonu
+            return redirect_based_on_group(request)  # Киргенден кийин багытточу функция
         else:
             return render(request, "account/login.html", {
                 "error": "аты же сырсөз туура эмес"
@@ -26,15 +26,15 @@ def login_request(request):
 
 def redirect_based_on_group(request):
     user = request.user
-    if user.groups.filter(name='Долбоорчулар').exists():
-        # Applying grubundaki kullanıcılar için yönlendirme
-        return redirect('regproje:menin_dolboorum')
+    if user.groups.filter(name='Кадро').exists():
+        # "Кадро" группасын багыттоо
+        return redirect('main:home')
     elif user.groups.filter(name='Комиссия').exists():
-        # Approvers grubundaki kullanıcılar için yönlendirme
+        # "Комиссия" группасын багытоо
         return redirect('regproje:index')
     else:
-        # Eğer kullanıcı herhangi bir gruba ait değilse ana sayfaya yönlendirme
-        return redirect('main:home')
+        # Эгер кирген юзер-аккаун бир группага мүчө эмес болсо бул жака багытталат
+        return redirect('regproje:menin_dolboorum')
 
 def register_request(request):
     if request.method == "POST":
@@ -68,6 +68,6 @@ def logout_request(request):
 @receiver(post_save, sender=User)
 def add_user_to_applying_group(sender, instance, created, **kwargs):
     if created:
-        # "Applying" adlı bir grup oluşturduğunuzdan emin olun
+        # "Долбоорчулар" админ панелден бул группа мурдатан жасалышы-жаратылышы керек
         group, created = Group.objects.get_or_create(name='Долбоорчулар')
         instance.groups.add(group)

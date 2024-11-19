@@ -1,0 +1,8 @@
+{% if company_info and company_info.logo %}
+        <img src="{{ company_info.logo.url }}" alt="Logo" style="height: 50px;"> <!-- İstediğiniz yükseklik ve genişlik ayarını yapabilirsiniz -->
+    {% endif %}
+    {% if company_info and company_info.name %}
+        {{ company_info.name }}
+    {% else %}
+        Şirket İsmi
+    {% endif %}
