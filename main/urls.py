@@ -6,9 +6,5 @@ app_name = 'main'
 
 urlpatterns = [
     path("", views.index, name="home"),
-    #path("index", views.index),
-    path('index_detail/<int:project_id>/', views.index_detail, name='index_detail'),
+    path('index_detail/<int:id>/', views.index_detail, name='index_detail'),
 ]
-
-
-

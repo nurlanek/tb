@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 from regproje.models import (
     Dolboor, Project_confirmation, Negizgimaalymat, Kenenmaalymat,
     Iskeashyruuplany, Dolboordundudjeti, Dolboordunkomandasy,
@@ -18,28 +19,20 @@ def index(request):
 
     return render(request, "main/index.html", context)
 
-#@login_required
-def index_detail(request, project_id):
-    if not request.user.is_authenticated:
-        return redirect("account:login")
+@login_required
+def index_detail(request, id):
+    dolboor = get_object_or_404(Dolboor, id=id)
+    user = dolboor.user
 
-    try:
-        # Projeyi ID'ye göre al
-        dolboor = get_object_or_404(Dolboor, id=project_id, is_active=True)
-    except Http404:
-        return redirect("error_page")  # Hata sayfasına yönlendirme
+    user_projects = Dolboor.objects.filter(user=user)
+    negizgimaalymat = Negizgimaalymat.objects.filter(user=user)
+    kenenmaalymat = Kenenmaalymat.objects.filter(user=user)
+    iskeashyruuplany = Iskeashyruuplany.objects.filter(user=user)
+    dolboordundudjeti = Dolboordundudjeti.objects.filter(user=user)
+    dolboordunkomandasy = Dolboordunkomandasy.objects.filter(user=user)
+    baaloo_turuktuuluk = Baaloo_turuktuuluk.objects.filter(user=user).first()
+    tirkemeler = Tirkemeler.objects.filter(user=user)
 
-    # Kullanıcıya bağlı verileri çek
-    user_projects = Dolboor.objects.filter(user=request.user)
-    negizgimaalymat = Negizgimaalymat.objects.filter(dolboor=dolboor)
-    kenenmaalymat = Kenenmaalymat.objects.filter(dolboor=dolboor)
-    iskeashyruuplany = Iskeashyruuplany.objects.filter(dolboor=dolboor)
-    dolboordundudjeti = Dolboordundudjeti.objects.filter(dolboor=dolboor)
-    dolboordunkomandasy = Dolboordunkomandasy.objects.filter(dolboor=dolboor)
-    baaloo_turuktuuluk = Baaloo_turuktuuluk.objects.filter(dolboor=dolboor).first()
-    tirkemeler = Tirkemeler.objects.filter(dolboor=dolboor)
-
-    # Şablon bağlamı
     context = {
         'dolboor': dolboor,
         'user_projects': user_projects,
@@ -51,5 +44,6 @@ def index_detail(request, project_id):
         'baaloo_turuktuuluk': baaloo_turuktuuluk,
         'tirkemeler': tirkemeler,
     }
+
 
     return render(request, "main/index_detail.html", context)
